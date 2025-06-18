@@ -1,0 +1,10 @@
+from keras.optimizers import Adam
+from keras.models import load_model
+
+# Define custom Adam optimizer with legacy support
+custom_objects = {
+    'Adam': lambda **kwargs: Adam(**{k: v for k, v in kwargs.items() if k != 'lr'})
+}
+
+# Load model with custom objects
+emotion_model = load_model('model.h5', custom_objects=custom_objects)
